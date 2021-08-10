@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { BlogItem, Button, Gap } from '../../components';
-import axios from 'axios';
+import { setDataBlog } from '../../config/redux/action';
 import './home.scss';
 
 const Home = () => {
@@ -11,12 +11,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_URL}/v1/blog/posts`)
-      .then(({ data }) => {
-        dispatch({ type: 'UPDATE_DATA_BLOG', payload: data.data });
-      })
-      .catch(err => console.log(err));
+    dispatch(setDataBlog());
   }, [dispatch]);
 
   return (
