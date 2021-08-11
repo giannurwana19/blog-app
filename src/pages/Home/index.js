@@ -20,12 +20,10 @@ const Home = () => {
 
   const previous = () => {
     setCounter(counter <= 1 ? 1 : counter - 1);
-    console.log(counter);
   };
 
   const next = () => {
     setCounter(counter === totalPage ? totalPage : counter + 1);
-    console.log(counter);
   };
 
   return (
