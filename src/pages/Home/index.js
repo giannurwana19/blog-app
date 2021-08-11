@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { BlogItem, Button, Gap } from '../../components';
 import { setDataBlog } from '../../config/redux/action';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import axios from 'axios';
 import './home.scss';
 
 const Home = () => {
@@ -26,6 +29,31 @@ const Home = () => {
     setCounter(counter === totalPage ? totalPage : counter + 1);
   };
 
+  const confirmDelete = id => {
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Apakah Anda yakin akan menghapus post ini?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            axios
+              .delete(`${process.env.REACT_APP_URL}/v1/blog/post/${id}`)
+              .then(res => {
+                console.log('sukses delete', res.data);
+                dispatch(setDataBlog(counter));
+              })
+              .catch(err => console.log(err));
+          },
+        },
+        {
+          label: 'No',
+          onClick: () => console.log('User tidak setuju'),
+        },
+      ],
+    });
+  };
+
   return (
     <div className="home-page-wrapper">
       <div className="create-wrapper">
@@ -45,6 +73,7 @@ const Home = () => {
             name={blog.author.name}
             date={blog.createdAt}
             _id={blog._id}
+            onDelete={confirmDelete}
           />
         ))}
       </div>

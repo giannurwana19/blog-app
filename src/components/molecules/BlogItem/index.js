@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Button, Gap } from '../../atoms';
 import './blogItem.scss';
 
-const BlogItem = ({ image, title, name, date, body, _id }) => {
+const BlogItem = ({ image, title, name, date, body, _id, onDelete }) => {
   const history = useHistory();
 
   return (
@@ -18,7 +18,10 @@ const BlogItem = ({ image, title, name, date, body, _id }) => {
               onClick={() => history.push(`/create-blog/${_id}`)}>
               Edit
             </p>{' '}
-            | <p className="delete">Delete</p>
+            |{' '}
+            <p className="delete" onClick={() => onDelete(_id)}>
+              Delete
+            </p>
           </div>
         </div>
         <p className="author">
