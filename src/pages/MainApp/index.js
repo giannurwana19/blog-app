@@ -13,7 +13,7 @@ const MainApp = () => {
       <div className="content-wrapper">
         <Router>
           <Switch>
-            <Route path="/create-blog">
+            <Route path="/create-blog/:id?">
               <CreateBlog />
             </Route>
             <Route path="/detail-blog/:id">
@@ -31,3 +31,6 @@ const MainApp = () => {
 };
 
 export default MainApp;
+
+// DOCS
+// tanda :id? merupakan parameter opsional
